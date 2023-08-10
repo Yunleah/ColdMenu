@@ -9,7 +9,6 @@ taboolib {
     install("common-5")
     install("module-chat")
     install("module-configuration")
-    install("module-kether")
     install("module-lang")
     install("module-metrics")
     install("platform-bukkit")
@@ -17,11 +16,11 @@ taboolib {
     install("module-nms")
     install("module-nms-util")
     classifier = null
-    version = "6.0.11-13"
+    version = "6.0.11-31"
 
     description {
         contributors {
-            name("Yunleah")
+            name("Yunleah763")
         }
 
     }
@@ -31,11 +30,18 @@ repositories {
     mavenCentral()
 }
 
+configurations{
+    maybeCreate("packShadow")
+    get("compileOnly").extendsFrom(get("packShadow"))
+    get("packShadow").extendsFrom(get("taboo"))
+}
+
 dependencies {
-    compileOnly("ink.ptms.core:v11701:11701:mapped")
-    compileOnly("ink.ptms.core:v11701:11701:universal")
-    compileOnly(kotlin("stdlib"))
+    compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
+    compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
     compileOnly(fileTree("libs"))
+    "packShadow"(kotlin("stdlib"))
+    "packShadow"("org.openjdk.nashorn:nashorn-core:15.4")
 }
 
 tasks.withType<JavaCompile> {
